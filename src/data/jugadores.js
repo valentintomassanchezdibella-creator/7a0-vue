@@ -1,7 +1,7 @@
 import { ref } from "vue"
 
 export const jugadores = ref([
-  { id: 1, nombre: "Lionel Messi", universo: "Figuras públicas reales (escala de capacidad física/combate)", tipo: "Humano", poder: 14 },
+  { id: 1, nombre: "Lionel Messi", universo: "Figuras públicas reales (escala de capacidad física/combate)", tipo: "Humano", poder: 14, img: "/jugadores/messi.avif" },
   { id: 2, nombre: "Guido Kaczka", universo: "Figuras públicas reales (escala de capacidad física/combate)", tipo: "Humano", poder: 6 },
   { id: 3, nombre: "Manuel Adorni", img: "adorni.avif", universo: "Figuras públicas reales (escala de capacidad física/combate)", tipo: "Humano", poder: 5 },
   { id: 4, nombre: "Javier Milei", universo: "Figuras públicas reales (escala de capacidad física/combate)", tipo: "Humano", poder: 6 },
