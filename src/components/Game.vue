@@ -89,6 +89,7 @@ sortear()
     </div>
 
     <section class="game">
+        <h2>Tablero de batalla</h2>
         <div class="tablero">
             <div 
                 class="jugador-boton"
@@ -102,6 +103,7 @@ sortear()
                 <div class="capa-boton">{{ boton.jugador ? boton.jugador.nombre : "Jugador keke"}}</div>
             </div>
         </div>
+        <p>Selecciona un personaje y colocalo en el tablero</p>
         <div class="jugadores" id="jugadores-random">
             <div 
                 class="jugadorDiv"
@@ -118,7 +120,7 @@ sortear()
                 <div class="datos-jugador">
                     <h3>{{ jugador.nombre }}</h3>
                     <span>{{ jugador.poder }}</span>
-                    <span>{{ jugador.tipo }}</span>
+                    <p>{{ jugador.tipo }}</p>
                 </div>
             </div>
         </div>
@@ -141,19 +143,49 @@ sortear()
 <style scoped>
 
 .game{
-    max-width: 1200px;
-    height: 500px;
-    margin: 0 auto;
-    background-color: red;
+    background-image: 
+      linear-gradient(rgba(0, 0, 0, 0.7)), 
+      url(/public/imagenes/img2.png);
+    background-position:bottom;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 20px;
+    gap: 15px;
+    padding: 20px 50px;
+
+    h2{
+        text-align: center;
+        color: #9e7d4b;
+        text-transform: uppercase;
+        font-size: 35px;
+    }
+
+    p{
+        color: #9e7d4b;
+        text-align: center;
+        font-size: 20px;
+
+    }
 
     .tablero{
         width: 100%;
-        height: 500px;
-        background-color: blue;
+        height: 400px;
+        background-image: url(/public/imagenes/img1.png);
+        background-position: center -220px;
+        background-size: cover;
+        position: relative;
+
+        &::before{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            
+            border: 3px solid #724d21;
+            border-radius: 20px;
+        }
          
         .jugador-boton{
             display: flex;
@@ -165,7 +197,7 @@ sortear()
             
             button{
                 position: relative;
-                padding: 12px 18px;
+                padding: 30px;
                 border-radius: 100%;
                 border: none;
                 display: flex;
@@ -191,15 +223,17 @@ sortear()
             width: 100%;
             height: auto;
             padding: 10px;
-            background-color: yellow;
+            background-color: transparent;
+            border: 2px solid #724d21;
             border-radius: 15px;
             display: flex;
+            align-items: center;
             gap: 10px;
             transition: all 0.35s;
 
             .imagen-jugador{
-                width: 50px;
-                height: 50px;
+                width: 70px;
+                height: 70px;
                 background-color: black;
                 border-radius: 50%;
             }
@@ -207,8 +241,25 @@ sortear()
             .datos-jugador{
                 display: flex;
                 flex-direction: column;
-                gap: 2px;
+                gap: 5px;
+
+                h3{
+                    font-size: 25px;
+                    color: #d1bb94;
+                }
+
+                span{
+                    font-size: 23px;
+                    color: purple;
+                    font-weight: 700;
+                }
+
+                p{
+                    font-size: 18px;
+                    text-align: left;
+                }
             }
+
 
 
 
