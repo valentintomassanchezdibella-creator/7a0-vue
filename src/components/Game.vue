@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
 
 const props = defineProps({
     mode: {
@@ -7,15 +7,22 @@ const props = defineProps({
         required: true
     }
 })
+const emit = defineEmits(['back'])
 
-import { jugadores } from "@/data/jugadores"
+const jugadores = ref([])
+
+onMounted(async () => {
+    const respuesta = await fetch('http://localhost/php/personajes.php')
+    jugadores.value = await respuesta.json()
+
+    jugadores.value.forEach(j => {
+        j.usado = false
+    })
+
+    sortear()
+})
 
 console.log(jugadores)
-
-
-jugadores.value.forEach(j => {
-  j.usado = false
-});
 
 const jugadorActivo = ref(null)
 
@@ -78,213 +85,217 @@ const asignarJugador = (boton) => {
 const siguiente = () => {
 
 }
-
-sortear()
 </script>
 
 
 <template>
-    <div class="contenedor" id="contenedor">
+    <section class="game-section">
+        <div class="contenedor" id="contenedor">
 
-    </div>
-
-    <section class="game">
-        <h2>Tablero de batalla</h2>
-        <div class="tablero">
-            <div 
-                class="jugador-boton"
-                v-for="boton in botones"
-                :key = "boton.numero"
-                :class="{ocupado: boton.jugador != null} ">
-
-                <button
-                @click="asignarJugador(boton)"
-                >{{ boton.jugador ? boton.jugador.poder : boton.numero }}</button>
-                <div class="capa-boton">{{ boton.jugador ? boton.jugador.nombre : "Jugador keke"}}</div>
-            </div>
         </div>
-        <p>Selecciona un personaje y colocalo en el tablero</p>
-        <div class="jugadores" id="jugadores-random">
-            <div 
-                class="jugadorDiv"
-                :class="{ active: jugadorActivo?.id === jugador.id }"
-                v-for="jugador in lista"
-                :key="jugador.id"
-                @click="seleccionarJugador(jugador)"
-                >
-                <div class="imagen-jugador">
-                    <div class="image-wrapper">
-                        <img src="" alt="">
+
+        <section class="game">
+            <h2>Tablero de batalla</h2>
+            <div class="tablero">
+                <div 
+                    class="jugador-boton"
+                    v-for="boton in botones"
+                    :key = "boton.numero"
+                    :class="{ocupado: boton.jugador != null} ">
+
+                    <button
+                    @click="asignarJugador(boton)" style="position: relative; overflow: hidden; height: 70px; width: 70px; padding: 0;">
+                    <img style="height: 100%; width: 100%; object-fit: cover; display: block;" :src="boton.jugador ? boton.jugador.img : '/suwako.jpeg'">
+                    <span style="position: absolute;inset: 0; display: flex; align-items: center; justify-content: center;">{{boton.jugador ? boton.jugador.poder : boton.numero }}</span></button>
+                    <div class="capa-boton">{{ boton.jugador ? boton.jugador.nombre : "Jugador keke"}}</div>
+                </div>
+            </div>
+            <p>Selecciona un personaje y colocalo en el tablero</p>
+            <div class="jugadores" id="jugadores-random">
+                <div 
+                    class="jugadorDiv"
+                    :class="{ active: jugadorActivo?.id === jugador.id }"
+                    v-for="jugador in lista"
+                    :key="jugador.id"
+                    @click="seleccionarJugador(jugador)"
+                    >
+                    <div class="imagen-jugador">
+                        <div class="image-wrapper" style="height: 70px; width: 70px;">
+                            <img style="height: 100%; width: 100%; object-fit: cover; display: block; border-radius: 50%;" :src="jugador.img">
+                        </div>
+                    </div>
+                    <div class="datos-jugador">
+                        <h3>{{ jugador.nombre }}</h3>
+                        <span>{{ jugador.poder }}</span>
+                        <p>{{ jugador.tipo }}</p>
                     </div>
                 </div>
-                <div class="datos-jugador">
-                    <h3>{{ jugador.nombre }}</h3>
-                    <span>{{ jugador.poder }}</span>
-                    <p>{{ jugador.tipo }}</p>
-                </div>
             </div>
-        </div>
-        <div class="equipo-footer">
-            <button
-            @click="juegoActivo = !juegoActivo"
-            >Seguir</button>
-        </div>
-    </section>
+            <div class="equipo-footer">
+                <button
+                @click="juegoActivo = !juegoActivo"
+                >Seguir</button>
+            </div>
+        </section>
 
-    <section class="pelea"
-    :class="{'active': juegoActivo}">
-        <div class="pelea-container">
+        <section class="pelea"
+        :class="{'active': juegoActivo}">
+            <div class="pelea-container">
 
-        </div>
+            </div>
+        </section>
     </section>
 </template>
 
 
 <style scoped>
 
-.game{
-    background-image: 
-      linear-gradient(rgba(0, 0, 0, 0.7)), 
-      url(/public/imagenes/img2.png);
-    background-position:bottom;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 20px 50px;
-
-    h2{
-        text-align: center;
-        color: #9e7d4b;
-        text-transform: uppercase;
-        font-size: 35px;
-    }
-
-    p{
-        color: #9e7d4b;
-        text-align: center;
-        font-size: 20px;
-
-    }
-
-    .tablero{
-        width: 100%;
-        height: 400px;
-        background-image: url(/public/imagenes/img1.png);
-        background-position: center -220px;
-        background-size: cover;
-        position: relative;
-
-        &::before{
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-            
-            border: 3px solid #724d21;
-            border-radius: 20px;
+.game-section{
+    .game{
+        background-image: 
+          linear-gradient(rgba(0, 0, 0, 0.7)), 
+          url(/public/imagenes/img2.png);
+        background-position:bottom;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px 50px;
+    
+        h2{
+            text-align: center;
+            color: #9e7d4b;
+            text-transform: uppercase;
+            font-size: 35px;
         }
-         
-        .jugador-boton{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            
-            button{
-                position: relative;
-                padding: 30px;
-                border-radius: 100%;
-                border: none;
+    
+        p{
+            color: #9e7d4b;
+            text-align: center;
+            font-size: 20px;
+    
+        }
+    
+        .tablero{
+            width: 100%;
+            height: 400px;
+            background-image: url(/public/imagenes/img1.png);
+            background-position: center -220px;
+            background-size: cover;
+            position: relative;
+    
+            &::before{
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                
+                border: 3px solid #724d21;
+                border-radius: 20px;
+            }
+             
+            .jugador-boton{
                 display: flex;
                 justify-content: center;
-                align-self: center;
-                cursor: pointer;
-                &.ocupado{
-                    background-color: #666;
-                    cursor: default;
-                }
-            }
-        }
-    }
-
-    .jugadores{
-        width: 100%;
-        height: 120px;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 20px;
-
-        .jugadorDiv{
-            width: 100%;
-            height: auto;
-            padding: 10px;
-            background-color: transparent;
-            border: 2px solid #724d21;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.35s;
-
-            .imagen-jugador{
-                width: 70px;
-                height: 70px;
-                background-color: black;
-                border-radius: 50%;
-            }
-
-            .datos-jugador{
+                align-items: center;
                 display: flex;
                 flex-direction: column;
-                gap: 5px;
-
-                h3{
-                    font-size: 25px;
-                    color: #d1bb94;
-                }
-
-                span{
-                    font-size: 23px;
-                    color: purple;
-                    font-weight: 700;
-                }
-
-                p{
-                    font-size: 18px;
-                    text-align: left;
+                gap: 8px;
+                
+                button{
+                    position: relative;
+                    padding: 30px;
+                    border-radius: 100%;
+                    border: none;
+                    display: flex;
+                    justify-content: center;
+                    align-self: center;
+                    cursor: pointer;
+                    &.ocupado{
+                        background-color: #666;
+                        cursor: default;
+                    }
                 }
             }
-
-
-
-
-            &.active{
-                transform: scale(1.05);
+        }
+    
+        .jugadores{
+            width: 100%;
+            height: 120px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+    
+            .jugadorDiv{
+                width: 100%;
+                height: auto;
+                padding: 10px;
+                background-color: transparent;
+                border: 2px solid #724d21;
+                border-radius: 15px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                transition: all 0.35s;
+    
+                .imagen-jugador{
+                    width: 70px;
+                    height: 70px;
+                    background-color: black;
+                    border-radius: 50%;
+                }
+    
+                .datos-jugador{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+    
+                    h3{
+                        font-size: 25px;
+                        color: #d1bb94;
+                    }
+    
+                    span{
+                        font-size: 23px;
+                        color: purple;
+                        font-weight: 700;
+                    }
+    
+                    p{
+                        font-size: 18px;
+                        text-align: left;
+                    }
+                }
+    
+    
+    
+    
+                &.active{
+                    transform: scale(1.05);
+                }
+    
+                &.usado{
+                    transform: scale(0.85);
+                }
             }
-
-            &.usado{
-                transform: scale(0.85);
-            }
+        }
+    }
+    
+    .pelea{
+        max-width: 1200px;
+        height: 500px;
+        margin: 0 auto;
+        background-color: brown;
+        display: none;
+    
+        &.active{
+            display: block;
         }
     }
 }
 
 
 
-.pelea{
-    max-width: 1200px;
-    height: 500px;
-    margin: 0 auto;
-    background-color: brown;
-    display: none;
-
-    &.active{
-        display: block;
-    }
-}
 </style>

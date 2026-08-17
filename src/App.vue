@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from "vue"
 
-
 import HomeScreen from "./components/HomeScreen.vue"
 import TutorialPrompt from "./components/TutorialPrompt.vue"
 import TutorialScreen from "./components/TutorialScreen.vue"

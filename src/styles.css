@@ -215,3 +215,27 @@ body{
     transform:scale(.95);
 }
 
+
+
+.asignar-jugador{
+    position: relative; 
+    overflow: hidden; 
+    height: 70px; 
+    width: 70px; 
+    padding: 0;
+
+    img{
+        height: 100%; 
+        width: 100%; 
+        object-fit: cover; 
+        display: block;
+    }
+
+    span{
+        position: absolute;
+        inset: 0; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+    }
+}
