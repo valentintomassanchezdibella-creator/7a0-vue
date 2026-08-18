@@ -21,6 +21,10 @@ body{
 
 .screen{
 
+    background-image: url(/public/imagenes/img2.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+
     width:100%;
 
     min-height: 100vh;
@@ -35,7 +39,6 @@ body{
 
     position:relative;
 
-    background:white;
 
     overflow:hidden;
 }
@@ -215,27 +218,3 @@ body{
     transform:scale(.95);
 }
 
-
-
-.asignar-jugador{
-    position: relative; 
-    overflow: hidden; 
-    height: 70px; 
-    width: 70px; 
-    padding: 0;
-
-    img{
-        height: 100%; 
-        width: 100%; 
-        object-fit: cover; 
-        display: block;
-    }
-
-    span{
-        position: absolute;
-        inset: 0; 
-        display: flex; 
-        align-items: center; 
-        justify-content: center;
-    }
-}

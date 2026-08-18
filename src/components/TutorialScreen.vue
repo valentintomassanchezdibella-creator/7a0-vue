@@ -110,6 +110,7 @@ const emit = defineEmits([
 
 <style scoped>
 
+
 .title{
 
     font-size:54px;

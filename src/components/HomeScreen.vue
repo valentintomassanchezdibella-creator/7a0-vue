@@ -21,6 +21,7 @@ const emit = defineEmits(["play"])
 
 <style scoped>
 
+
 .logo{
 
     margin-bottom:80px;

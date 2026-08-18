@@ -39,6 +39,7 @@ const emit = defineEmits(["select", "back"])
 
 <style scoped>
 
+
 .title{
 
     font-size:54px;

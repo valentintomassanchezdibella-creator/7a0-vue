@@ -51,6 +51,7 @@ const emit = defineEmits([
 
 <style scoped>
 
+
 .subtitle{
 
     margin-bottom:60px;
