@@ -98,9 +98,9 @@ console.log("Poder del equipo rival: ", poderRival.value)
 
 <style scoped>
     .batalla{
-        display: flex;
-        justify-content: space-between;
-        height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 4fr 1fr;
+        min-height: 100vh;
         background-image:
         linear-gradient(rgba(0, 0, 0, 0.8)),
         url(/public/imagenes/img2.png);
@@ -110,16 +110,17 @@ console.log("Poder del equipo rival: ", poderRival.value)
 
     .resultado{
         height: 100%;
-        min-width: 1300px;
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 50px;
+        padding: 0px;
     }
 
     .tablero{
-        height: 800px;
+        
+        min-height: 70vh;
         width: 100%;
         background-image: url(/public/imagenes/img1.png);
         background-position: center ;
@@ -145,7 +146,7 @@ console.log("Poder del equipo rival: ", poderRival.value)
     }
 
     .equipo-propio{
-        width: 500px;
+        width: 100%;
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -185,6 +186,24 @@ console.log("Poder del equipo rival: ", poderRival.value)
             }
 
 
+        }
+    }
+
+    @media (max-width: 1200px){
+        .resultado{
+            .tablero{
+                min-height: 50vh;
+            }
+        }
+
+        .equipo-propio{
+            gap: 15px;
+
+            .personaje{
+                width: 130px;
+                height: 200px;
+                border-radius: 40px;
+            }
         }
     }
 
