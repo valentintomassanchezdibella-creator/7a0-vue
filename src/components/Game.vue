@@ -13,10 +13,10 @@ const props = defineProps({
 const jugadores = ref([])
 
 
-
 onMounted(async () => {
-    const respuesta = await fetch('http://localhost/php/php/personajes.php')
+    const respuesta = await fetch('http://localhost/php/personajes.php')
     jugadores.value = await respuesta.json()
+    console.log(jugadores)
     
     jugadores.value.forEach(j => {
         j.usado = false
@@ -118,8 +118,8 @@ const enviarEquipo = () =>{
                 :class="{ocupado: boton.jugador != null} ">
 
                 <button
-                @click="asignarJugador(boton)"
-                >{{ boton.jugador ? boton.jugador.poder : boton.numero }}</button>
+                @click="asignarJugador(boton)">
+                {{ boton.jugador ? boton.jugador.poder : boton.numero }}</button>
                 <div class="capa-boton">{{ boton.jugador ? boton.jugador.nombre : "Jugador keke"}}</div>
             </div>
         </div>
@@ -160,10 +160,9 @@ const enviarEquipo = () =>{
 <style scoped>
 
 .game{
-    height: 100vh;
     background-image: 
       linear-gradient(rgba(0, 0, 0, 0.76)), 
-      url(/public/imagenes/img2.png);
+      url(/imagenes/img2.png);
     background-position:bottom;
     background-repeat: no-repeat;
     background-size: cover;
@@ -188,8 +187,8 @@ const enviarEquipo = () =>{
 
     .tablero{
         width: 100%;
-        height: 70%;
-        background-image: url(/public/imagenes/img1.png);
+        height: 100%;
+        background-image: url(/imagenes/img1.png);
         background-position: center -132px;
         background-size: cover;
         position: relative;
@@ -248,8 +247,10 @@ const enviarEquipo = () =>{
             border-radius: 15px;
             display: flex;
             justify-content: left;
+            align-items: center;
             gap: 25px;
             transition: all 0.35s;
+            box-sizing: border-box;
 
             .imagen-jugador{
                 width: 100px;
@@ -287,9 +288,6 @@ const enviarEquipo = () =>{
                 }
             }
 
-
-
-
             &.active{
                 transform: scale(1.05);
             }
@@ -308,8 +306,6 @@ const enviarEquipo = () =>{
     }
 }
 
-
-
 .pelea{
     max-width: 1200px;
     height: 500px;
@@ -321,4 +317,47 @@ const enviarEquipo = () =>{
         display: block;
     }
 }
+
+
+
+@media (max-width: 1100px) {
+    .game{
+        .jugadores {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+
+            .jugadorDiv {
+                padding: 20px 15px;
+                gap: 15px;
+
+                .imagen-jugador {
+                    width: 80px;
+                    height: 80px;
+                    min-width: 80px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    .game{
+        .jugadores {
+            grid-template-columns: 1fr;
+            gap: 12px;
+
+            .jugadorDiv {
+                padding: 15px;
+                gap: 15px;
+
+                .imagen-jugador {
+                    width: 65px;
+                    height: 65px;
+                    min-width: 65px;
+                }
+            }
+        }
+    }
+}
+
 </style>

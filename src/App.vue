@@ -72,14 +72,14 @@ function recibirEquipo(datos) {
 
 <ModeSelect
     v-else-if="screen === 'modes'"
-    @back="goHome"
+    @back="screen='tutorialPrompt'"
     @select="startGame"
 />
 
 <Game
     v-else-if="screen === 'game'"
     :mode="gameMode"
-    @back="goHome"
+    @back="screen='modes'"
     @enviar-equipo="recibirEquipo"
 />
 
@@ -94,6 +94,6 @@ function recibirEquipo(datos) {
 
 <style scoped>
     body{
-        background-image: url(/public/imagenes/img2.png)
+        background-image: url(/imagenes/img2.png)
     }
 </style>

@@ -41,6 +41,7 @@ const emit = defineEmits(["select", "back"])
 
 
 .title{
+    margin-top:60px;
 
     font-size:54px;
 
@@ -58,6 +59,8 @@ const emit = defineEmits(["select", "back"])
     flex-direction:column;
 
     gap:35px;
+
+    margin-bottom:60px;
 }
 
 .mode-button{

@@ -21,7 +21,7 @@ body{
 
 .screen{
 
-    background-image: url(/public/imagenes/img2.png);
+    background-image: url(/imagenes/img2.png);
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -150,15 +150,17 @@ body{
 
     position:absolute;
 
-    left:40px;
+    left:20px;
 
-    top:40px;
+    top:20px;
 
     font-size:60px;
 
     cursor:pointer;
 
     user-select:none;
+
+    color:white;
 }
 
 /* Tarjetas tutorial */

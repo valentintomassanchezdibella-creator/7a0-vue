@@ -1,7 +1,6 @@
 <script setup>
 
 import { ref, computed} from "vue"
-import { jugadores } from "@/data/jugadores"
 
 const iniciar = ref(false)
 
@@ -103,7 +102,7 @@ console.log("Poder del equipo rival: ", poderRival.value)
         min-height: 100vh;
         background-image:
         linear-gradient(rgba(0, 0, 0, 0.8)),
-        url(/public/imagenes/img2.png);
+        url(/imagenes/img2.png);
         background-size: cover;
         background-repeat: no-repeat;
     }
@@ -122,7 +121,7 @@ console.log("Poder del equipo rival: ", poderRival.value)
         
         min-height: 70vh;
         width: 100%;
-        background-image: url(/public/imagenes/img1.png);
+        background-image: url(/imagenes/img1.png);
         background-position: center ;
         background-size: cover;
         background-repeat: no-repeat;

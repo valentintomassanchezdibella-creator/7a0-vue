@@ -112,6 +112,7 @@ const emit = defineEmits([
 
 
 .title{
+    margin-top:60px;
 
     font-size:54px;
 
@@ -121,12 +122,11 @@ const emit = defineEmits([
 }
 
 .cards{
-
     display:flex;
 
     gap:35px;
 
-    margin-bottom:60px;
+    margin:0 10px 60px 10px;
 
     flex-wrap:wrap;
 
@@ -134,16 +134,14 @@ const emit = defineEmits([
 }
 
 .card{
-
-    width:28%;
-
+    width:30%;
     background:white;
 
     border:5px solid black;
 
     border-radius:22px;
 
-    padding:28px;
+    padding:30px;
 
     box-shadow:10px 10px black;
 
@@ -184,15 +182,15 @@ const emit = defineEmits([
 }
 
 .continue{
-
     width:320px;
+
+    margin-bottom:60px;
 }
 
 @media(max-width:1000px){
 
-.cards{
-
-    flex-direction:column;
+.card{
+    width:340px;
 }
 
 .title{

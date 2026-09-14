@@ -26,7 +26,7 @@ const emit = defineEmits(["play"])
 
     margin-bottom:80px;
 
-    font-size:140px;
+    font-size: clamp(60px, 17.5vw, 140px);
 
     font-family:Bangers,cursive;
 

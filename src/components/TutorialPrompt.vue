@@ -53,10 +53,9 @@ const emit = defineEmits([
 
 
 .subtitle{
-
     margin-bottom:60px;
 
-    font-size:40px;
+    font-size: min(40px, 8.5vw);
 
     text-align:center;
 }
@@ -66,6 +65,13 @@ const emit = defineEmits([
     display:flex;
 
     gap:80px;
+}
+
+@media(max-width:700px){
+    .buttons{
+        flex-direction: column;
+        gap:0;
+    }
 }
 
 </style>
